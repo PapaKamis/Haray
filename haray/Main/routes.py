@@ -4,17 +4,9 @@ from haray.models import User, Product
 from sqlalchemy import and_
 
 
-
-
-
-
 from flask import Blueprint
 
 main = Blueprint('main', __name__)
-
-
-
-
 
 
 @main.route('/')
@@ -35,7 +27,7 @@ def home():
     return render_template('home.html', title='Home Page', getProducts=getProducts, img_location=img_location) #,  form=form,)
 
 
-@main.route('/searchresult/<string:search>', methods=['GET'])
+@main.route('/searchresult/<string:search>', methods=['GET', 'POST'])
 def searchresults(search):
     form = Search()
     page = request.args.get('page', 1, type=int)
@@ -55,4 +47,3 @@ def searchresults(search):
 
     return render_template('searchresult.html', title='Search results...', getProducts=getProducts, form=form,
                            img_location=img_location)
-#

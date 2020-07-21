@@ -53,7 +53,7 @@
 <!--            <p align="middle"><a class="btn btn-primary btn-lg" href="{{ url_for('products.sellproduct') }}" role="button">Sell Product</a></p>-->
 <!--        {% else %}-->
 <!--            <p align="middle">Start your experience now</p>-->
-<!--            <p align="middle"><a class="btn btn-primary btn-lg" href="{{ url_for('register') }}" role="button">Register</a></p>-->
+<!--            <p align="middle"><a class="btn btn-primary btn-lg" href="{{ url_for('users.register') }}" role="button">Register</a></p>-->
 <!--        {% endif %}-->
 <!--    </div>-->
 
@@ -73,7 +73,7 @@
                             <p class="text-secondary">{{ 'Category: ' + product.producttype }}</p>
                             <p class="text-secondary">Price: {{ product.price }} KD</p>
             <!--                <p class="text-secondary">Added since: {{ product.date_posted.strftime('%Y-%m-%d') }} </p>-->
-                            <a class="nav-item" href="{{ url_for('products.userprofile', user_id=product.user_id) }}">{{ product.seller.username }}</a>
+                            <a class="nav-item" href="{{ url_for('users.userprofile', user_id=product.user_id) }}">{{ product.seller.username }}</a>
                                     <hr/>
             <!--                <p class="text-secondary">Description: {{ product.description }}</p>-->
                         <div class="form-group">

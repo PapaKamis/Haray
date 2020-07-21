@@ -47,6 +47,13 @@
             <!-- Navbar Right Side -->
 
             <div class="navbar-nav">
+
+                  <form class="form-inline my-2 my-lg-0 mr-5" method="POST" action="{{ url_for('main.searchresults', search='iPhone') }}" enctype="multipart/form-data">
+                      <input class="form-control mr-sm-2 pr-3" type="search" placeholder="Search" aria-label="Search">
+                      <a class="btn btn-outline-primary my-2 my-sm-0 mr-5 pl-4 pr-4" href="{{ url_for('main.searchresults', search='iphone' ) }}">Search</a>
+<!--                      <input type="submit">-->
+                </form>
+
 <!--              <a class="nav-item nav-link" href="/manageAcc">-->
 
 <!--                    <p1>{{ current_user.username }}</p1>-->
