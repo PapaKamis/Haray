@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ img_location }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <h3 class="mr-2">{{ product.productname }}{% if product.sold == 1 %}  <small class="text-secondary">(Sold)</small>{% endif %}</h3>
+                <small class="text-muted">Added since: {{ product.date_posted.strftime('%d-%m-%Y') }} </small>
+            </div>
+
+            Seller: <a class="nav-item" href="{{ url_for('users.userprofile', user_id=product.user_id) }}">{{ product.seller.username }}</a>
+                        <hr/>
+            <div class="form-group">
+                {% if product.sold == 0 %}
+                    {% if current_user.user_id == product.user_id %}
+                        <a class="btn btn-primary" href="{{ url_for('products.updateproduct', prod_id=product.prod_id) }}">Manage Product</a>
+                    {% else %}
+                        <a class="btn btn-primary" href="{{ url_for('products.checkout', prod_id=product.prod_id) }}">Buy Product</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+        <div class="row">
+                  <div class="col-6 border-right">
+                        <p class="text-secondary">{{ 'Name: ' + product.productname }}</p>
+                      <p class="text-secondary">Price: {{ product.price }} KD</p>
+
+                  {% if current_user.user_id == product.user_id %}
+                            <p class="text-secondary">Product ID: {{ product.prod_id }}</p>
+                    {% endif %}
+                  </div>
+
+                  <div class="col-6">
+                    <p class="text-secondary">{{ 'Category: ' + product.producttype }}</p>
+                      <p class="text-secondary">{{ 'Description: ' + product.description }}</p>
+
+                  </div>
+        </div>
+    </div>
+
+{% endblock body %}

@@ -1,0 +1,201 @@
+{% extends 'layout.html' %}
+{% block registercss %}
+<!--css for registration container-->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='#') }}">
+{% endblock registercss %}
+
+{% block body %}
+<!--    <div class="container">-->
+<!--			<div class="row main">-->
+<!--				<div class="panel-heading">-->
+<!--	               <div class="panel-title text-center">-->
+<!--	               		<h1 class="title"></h1>-->
+<!--	               		<hr />-->
+<!--	               	</div>-->
+<!--	            </div>-->
+<!--				<div class="main-login main-center">-->
+<!--					<form class="form-horizontal" method="post" action="#">-->
+
+<!--						<div class="form-group">-->
+<!--							<label for="firstname" class="cols-sm-2 control-label">First name</label>-->
+<!--							<div class="cols-sm-10">-->
+<!--								<div class="input-group">-->
+<!--									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>-->
+<!--									<input type="text" class="form-control" name="firstname" id="firstname"  placeholder="Enter your Name"/>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="form-group">-->
+<!--							<label for="lastname" class="cols-sm-2 control-label">Last name</label>-->
+<!--							<div class="cols-sm-10">-->
+<!--								<div class="input-group">-->
+<!--									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>-->
+<!--									<input type="text" class="form-control" name="lastname" id="lastname"  placeholder="Enter your last name"/>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="form-group">-->
+<!--							<label for="email" class="cols-sm-2 control-label">Email</label>-->
+<!--							<div class="cols-sm-10">-->
+<!--								<div class="input-group">-->
+<!--									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>-->
+<!--									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Username"/>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="form-group">-->
+<!--							<label for="username" class="cols-sm-2 control-label">Username</label>-->
+<!--							<div class="cols-sm-10">-->
+<!--								<div class="input-group">-->
+<!--									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>-->
+<!--									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="form-group">-->
+<!--							<label for="password" class="cols-sm-2 control-label">Password</label>-->
+<!--							<div class="cols-sm-10">-->
+<!--								<div class="input-group">-->
+<!--									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>-->
+<!--									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="form-group">-->
+<!--							<label for="confirm_password" class="cols-sm-2 control-label">Confirm Password</label>-->
+<!--							<div class="cols-sm-10">-->
+<!--								<div class="input-group">-->
+<!--									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>-->
+<!--									<input type="password" class="form-control" name="confirm_password" id="confirm_password"  placeholder="Confirm your Password"/>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+
+<!--						<div class="form-group ">-->
+<!--							<button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>-->
+<!--						</div>-->
+<!--						<div class="login-register">-->
+<!--				           <medium> Have An Account? </medium><a href="{{ url_for('users.login') }}">Login</a>-->
+<!--				         </div>-->
+<!--					</form>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+
+ <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Sign up</legend>
+                <div class="form-group">
+                    {{ form.firstname.label(class="form-control-label") }}
+
+					{% if form.firstname.errors %}
+						{{ form.firstname(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.firstname.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.firstname(class="form-control form-control-lg") }}
+					{% endif %}
+
+                </div>
+                <div class="form-group">
+                    {{ form.lastname.label(class="form-control-label") }}
+                    {% if form.lastname.errors %}
+						{{ form.lastname(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.lastname.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.lastname(class="form-control form-control-lg") }}
+					{% endif %}
+                </div>
+				<div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+						{{ form.email(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.email.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.email(class="form-control form-control-lg") }}
+					{% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}
+                   {% if form.username.errors %}
+						{{ form.username(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.username.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.username(class="form-control form-control-lg") }}
+					{% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.dob.label(class="form-control-label") }}
+                    {% if form.dob.errors %}
+						{{ form.dob(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.dob.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.dob(class="form-control form-control-lg") }}
+					{% endif %}
+                </div>
+				<div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+						{{ form.password(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.password.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.password(class="form-control form-control-lg") }}
+					{% endif %}
+                </div>
+				<div class="form-group">
+                    {{ form.confirm_password.label(class="form-control-label") }}
+                    {% if form.confirm_password.errors %}
+						{{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+						<div class="invalid-feedback">
+							{% for error in form.confirm_password.errors %}
+								<span>{{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.confirm_password(class="form-control form-control-lg") }}
+					{% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-primary") }}
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already Have An Account? <a class="ml-2" href="{{ url_for('users.login') }}">Sign in</a>
+        </small>
+    </div>
+
+{% endblock body %}
+

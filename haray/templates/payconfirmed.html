@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="https://i.imgur.com/wMpXRa0.png">
+        <div class="media-body">
+            <div class="article-metadata">
+                <h3 class="mr-2">Payment Confirmed</h3>
+                <small class="text-muted">Added since: {{ product.date_posted.strftime('%d-%m-%Y') }} </small><br>
+                <small class="text-muted">Purchase Date: {{ date }} </small>
+            </div>
+
+            Seller: <a class="nav-item" href="{{ url_for('users.userprofile', user_id=product.user_id) }}">{{ product.seller.username }}</a><br>
+            Buyer: <a class="nav-item" href="{{ url_for('users.userprofile', user_id=current_user.user_id) }}">{{ current_user.username }}</a>
+                        <hr/>
+            <small class="text-muted">Transaction ID: {{ payment.pay_id }} </small><br>
+            <small class="text-muted">Transaction date: {{ payment.transaction_date.strftime('%d-%m-%Y') }} </small>
+
+
+        </form>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+        <div class="row">
+                  <div class="col-6 border-right">
+
+                            <img class="rounded-circle account-img" src="{{ img_location }}">
+                        <a class="text-secondary">{{ product.productname }}</a>
+
+
+                  {% if current_user.user_id == product.user_id %}
+                            <p class="text-secondary">Product ID: {{ product.prod_id }}</p>
+                    {% endif %}
+                  </div>
+
+                  <div class="col-6">
+                      <p class="text-secondary">Price: {{ product.price }} KD</p>
+                    <p class="text-secondary">{{ 'Category: ' + product.producttype }}</p>
+                      <p class="text-secondary">{{ 'Description: ' + product.description }}</p>
+
+                  </div>
+        </div>
+    </div>
+
+
+    </div>
+
+
+
+
+
+{% endblock body %}

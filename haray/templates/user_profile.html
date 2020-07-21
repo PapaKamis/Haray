@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<!--    <h1>Profile</h1>-->
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user_image_file }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+            <div class="col-6 border-right">
+                <p class="text-secondary">{{ user.firstname + ' ' + user.lastname }}</p>
+                <p class="text-secondary">Total Products: {{ products.total }}</p>
+
+                              </div>
+
+              <div class="col-6">
+                    <p class="text-secondary">{{ current_user.dob}}</p>
+
+
+
+
+              </div>
+        </div>
+      </div>
+      <!-- FORM HERE -->
+        <div class="content-section">
+<!--            without enctype gives error-->
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <legend class="border-bottom mb-4">
+                    {% if current_user.user_id == user.user_id %}
+                    <div align="right" >
+                        <a class="btn btn-primary ml-5" href="{{ url_for('users.purchasehistory') }}">View History</a>
+                    </div>
+                    {% endif %}
+
+                Products for sale </legend>
+            <fieldset class="form-group">
+                {% if products.items %}
+                    {% for product in products.items %}
+                      <div class="media">
+                        <img class="rounded-circle account-img" src="{{ img_location + product.image_file }}">
+                        <div class="media-body">
+                            <div class="article-metadata">
+                               <h3 class="mr-2"><a href="{{ url_for('products.product', prod_id=product.prod_id) }}">{{ product.productname }}</a></h3>
+                                <small class="text-muted">Added since: {{ product.date_posted.strftime('%d-%m-%Y') }} </small>
+                            </div>
+                                <p class="text-secondary">{{ 'Category: ' + product.producttype }}</p>
+                                <p class="text-secondary">Price: {{ product.price }} KD</p>
+                            <div class="form-group">
+<!--                                <a class="btn btn-primary" href="{{ url_for('products.product', prod_id=product.prod_id) }}">View Product</a>-->
+                            </div>
+
+
+            </form>
+            <hr/>
+
+
+                      </div>
+                    </div>
+            {% endfor %}
+            {% else %}
+                 {% if current_user.user_id == user.user_id %}
+                    <p align="middle">You do not own any products.</p>
+                {% else %}
+                    <p align="middle">This user does not own any products.</p>
+                {% endif %}
+            {% endif %}
+
+
+
+
+
+
+
+        </div>
+    </div>
+            </fieldset>
+        </form>
+    </div>
+    </div>
+
+
+
+
+
+
+
+        <div class="container" align="middle">
+        {% for page_num in products.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=4) %}
+            {% if page_num %}
+                {% if products.page == page_num %}
+                <a class="btn btn-primary mb-4" href="{{ url_for('users.userprofile', user_id=user.user_id, page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                <a class="btn btn-outline-primary mb-4" href="{{ url_for('users.userprofile', user_id=user.user_id, page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+
+
+
+
+{% endblock body %}

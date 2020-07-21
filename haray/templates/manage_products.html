@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    {% if getProducts.items %}
+    <h1>Management Products</h1>
+
+
+            {% for product in getProducts.items %}
+<div class="content-section">
+          <div class="media">
+            <img class="rounded-circle account-img" src="{{ img_location + product.image_file }}">
+            <div class="media-body">
+
+               <h2> <a href="{{ url_for('products.product', prod_id=product.prod_id) }}">{{ product.productname }}</a></h2>
+                    <p class="text-secondary">{{ 'Category: ' + product.producttype }}</p>
+                    <p class="text-secondary">Price: {{ product.price }}</p>
+    <!--                <p class="text-secondary">Description: {{ product.description }}</p>-->
+                <div>
+                    <a class="btn btn-primary" href="{{ url_for('products.updateproduct', prod_id=product.prod_id) }}">Edit Product Info</a>
+<!--                    <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#DeleteModal">Delete Product</a>--><hr/>
+                            <form action="{{ url_for('products.deleteproduct', prod_id=product.prod_id) }}" method="POST">
+                                  <input class="btn btn-danger" type="submit" value="Delete Product">
+                              </form></div>
+<!--{{ url_for('products.deleteproduct', prod_id=product.prod_id) }}-->
+            <!-- Modal -->
+
+
+<!--                    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="DeleteModalLabel" aria-hidden="true">-->
+<!--                      <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                          <div class="modal-header">-->
+
+<!--                            <h5 class="modal-title" id="DeleteModalLabel">Warning</h5>-->
+<!--                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                              <span aria-hidden="true">&times;</span>-->
+<!--                            </button>-->
+<!--                          </div>-->
+<!--                          <div class="modal-body">-->
+<!--                              Are you sure you want to delete the product? <p>It will no longer be up for sale.</p>-->
+<!--                          </div>-->
+
+<!--                          <div class="modal-footer">-->
+<!--                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+
+
+<!--                              <form action="{{ url_for('products.deleteproduct', prod_id=product.prod_id) }}" method="POST">-->
+<!--                                  <input class="btn btn-danger" type="submit" value="Delete">-->
+<!--                              </form>-->
+
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+
+
+<!--                <hr/>-->
+            </div>
+          </div>
+    </div>
+            {% endfor %}
+    {% else %}
+        <h3 align="middle">You do not have any products up for sale.</h3>
+
+    {% endif %}
+
+     <div class="container" align="middle">
+        {% for page_num in getProducts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=4) %}
+            {% if page_num %}
+                {% if getProducts.page == page_num %}
+                <a class="btn btn-primary mb-4" href="{{ url_for('products.manageproducts', page=page_num) }}">{{ page_num }}</a>
+                {% else %}
+                <a class="btn btn-outline-primary mb-4" href="{{ url_for('products.manageproducts', page=page_num) }}">{{ page_num }}</a>
+                {% endif %}
+            {% else %}
+                ...
+            {% endif %}
+        {% endfor %}
+</div>
+
+
+
+
+{% endblock body %}
