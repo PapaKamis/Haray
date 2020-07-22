@@ -1,0 +1,23 @@
+
+
+    <div class="form-group">
+        <form method="POST" action="{{ url_for('main.searchresults', search=searchingfor) }}"  enctype="multipart/form-data">
+        {% if searchbar.search.errors %}
+
+        {% else %}
+            {{ searchbar.search(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+    <div class="form-group">
+        {{ searchbar.submit(class="btn btn-outline-primary") }}
+    </div>
+    </form>
+
+<!--                  <a class="ml-2" href="{{ url_for('main.searchresults', search='iphone') }}">{{ searchbar.submit(class="btn btn-outline-primary") }}</a>-->
+
+<!--        <form method="POST" action="{{ url_for('main.searchresults', search='iPhone') }}" enctype="multipart/form-data">-->
+<!--              <div class="md-form active-cyan active-cyan-2">-->
+<!--                  <a class="md-form active-cyan active-cyan-2" type="text" placeholder="Search" aria-label="Search">{{ searchbar.search }}</a>-->
+
+<!--              </div>-->
+<!--        </form>-->

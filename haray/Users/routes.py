@@ -5,6 +5,7 @@ from haray.models import User, Product, Payment
 from flask_login import login_user, current_user, logout_user, login_required
 from haray.Users.utils import send_mail, save_picture
 import os
+from haray.Main.forms import Search
 
 
 from flask import Blueprint
@@ -15,6 +16,8 @@ users = Blueprint('users', __name__)
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
+    searchbar = Search()
+
 
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -30,12 +33,14 @@ def register():
         db.session.commit()
         flash('Your account has been created.', 'success')
         return redirect(url_for('users.login'))
-    return render_template('register.html', title='Register Page', form=form)
+    return render_template('register.html', title='Register Page', form=form, searchbar=searchbar)
 
 
 @users.route('/login', methods=['GET', 'POST'])
 def login():
     # auto knows if user is logged in
+    searchbar = Search()
+
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
 
@@ -51,7 +56,7 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Login unsuccessful. Incorrect username or password', 'danger')
-    return render_template('login.html', title='Login Page', form=form)
+    return render_template('login.html', title='Login Page', form=form, searchbar=searchbar)
 
 
 @users.route('/logout')
@@ -65,6 +70,7 @@ def logout():
 @login_required
 def account():
     form = UpdateAccountForm()
+    searchbar = Search()
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
@@ -89,11 +95,12 @@ def account():
 
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
 
-    return render_template('account.html', title='Account Management', image_file=image_file, form=form)
+    return render_template('account.html', title='Account Management', image_file=image_file, form=form, searchbar=searchbar)
 
 
 @users.route('/profile/<int:user_id>', methods=['GET', 'POST'])
 def userprofile(user_id):
+    searchbar = Search()
     page = request.args.get('page', 1, type=int)
     form = UpdateAccountForm()
     user = User.query.get_or_404(user_id)
@@ -104,7 +111,7 @@ def userprofile(user_id):
     img_location = url_for('static', filename='product_pics/')
     return render_template('user_profile.html', user=user, title='Update Product'
                            , form=form, legend='User Profile', products=products,
-                           user_image_file=user_image_file, img_location=img_location)
+                           user_image_file=user_image_file, img_location=img_location, searchbar=searchbar)
 
 
 @users.route('/manageaccount')
@@ -116,6 +123,7 @@ def manageaccount():
 @users.route('/purhcasehistory', methods=['GET'])
 @login_required
 def purchasehistory():
+    searchbar = Search()
     page = request.args.get('page', 1, type=int)
 
     products = db.session.query(Product, Payment).\
@@ -129,11 +137,13 @@ def purchasehistory():
 
     img_location = url_for('static', filename='product_pics/')
 
-    return render_template('userhistory.html', title='Purchase History', products=products, user_image_file=user_image_file, img_location=img_location)
+    return render_template('userhistory.html', title='Purchase History', products=products,
+                           user_image_file=user_image_file, img_location=img_location, searchbar=searchbar)
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])
 def reset_request():
+    searchbar = Search()
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     form = RequestResetForm()
@@ -148,11 +158,12 @@ def reset_request():
         return redirect(url_for('users.login'))
 
 
-    return render_template('reset_request.html', title='Reset Password', form=form)
+    return render_template('reset_request.html', title='Reset Password', form=form, searchbar=searchbar)
 
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_token(token):
+    searchbar = Search()
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
     user = User.verify_reset_token(token)
@@ -169,4 +180,4 @@ def reset_token(token):
         flash('Your password has been updated.', 'success')
         return redirect(url_for('users.login'))
 
-    return render_template('reset_token.html', title='Reset Password', form=form)
+    return render_template('reset_token.html', title='Reset Password', form=form, searchbar=searchbar)
