@@ -1,67 +1,30 @@
 {% extends 'layout.html' %}
 
 
-{% block homebar %}
-<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-interval="10000">
-      <a href="home"><img src="https://i.imgur.com/MlTZFUz.jpg" class="d-block w-100" alt="..."></a>
-        <div class="carousel-caption">
-            <p>Shop Electronics</p>
-<!--            <a class="btn btn-primary" href="#">View Electornics</a>-->
-        </div>
-    </div>
-    <div class="carousel-item" data-interval="2000">
-
-      <a href="home"><img src="https://i.imgur.com/NgfbFH0.jpg" class="d-block w-100" alt="..."></a>
-        <div class="carousel-caption">
-            <p>Shop Electronics</p>
-<!--            <a class="btn btn-primary" href="#">View Electornics</a>-->
-        </div>
-    </div>
-    <div class="carousel-item">
-      <a href="home"><img src="https://i.imgur.com/GrKLion.jpg" class="d-block w-100" alt="..."></a>
-        <div class="carousel-caption">
-            <p>Shop Sports</p>
-<!--            <a class="btn btn-primary" href="#">View Sports Section</a>-->
-        </div>
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-
-
-{% endblock homebar%}
 {% block body %}
+<h1>Search Products</h1>
+<form method="POST" action="">
+    <div class="content-section">
+        <div align="middle" class="mb-2">
+            {{ form.search(class="form-control", placeholder="Search for something...") }}
+    </div>
+        <div align="middle">
+            {{ form.submit(class="btn btn-primary pr-5 pl-5") }}
+            </div>
 
 
 
 
-<!--    <div class="jumbotron" style="background-image: url(https://i.imgur.com/x5ngaiZ.png)">-->
-<!--         <h1 align="middle">Haray</h1>-->
-<!--         <p align="middle">Welcome to Haray.com</p>-->
-
-<!--        {% if current_user.is_authenticated %}-->
-<!--            <p align="middle">Sell your products with a click!</p>-->
-<!--            <p align="middle"><a class="btn btn-primary btn-lg" href="{{ url_for('products.sellproduct') }}" role="button">Sell Product</a></p>-->
-<!--        {% else %}-->
-<!--            <p align="middle">Start your experience now</p>-->
-<!--            <p align="middle"><a class="btn btn-primary btn-lg" href="{{ url_for('users.register') }}" role="button">Register</a></p>-->
-<!--        {% endif %}-->
-<!--    </div>-->
+<hr/>
 
 
 
 
-    <h1>Featured Products</h1>
-        {% for product in getProducts.items %}
+
+        {% if getProducts == [] %}
+        <p align="middle">No results found.</p>
+        {% else %}
+        {% for product in getProducts %}
             <div class="content-section">
                   <div class="media">
                     <img class="rounded-circle account-img" src="{{ img_location + product.image_file }}">
@@ -78,7 +41,6 @@
             <!--                <p class="text-secondary">Description: {{ product.description }}</p>-->
                         <div class="form-group">
 <!--                            <a class="btn btn-primary" href="{{ url_for('products.product', prod_id=product.prod_id) }}">View Product</a>-->
-            <!--                {{ form.submit(class="btn btn-outline-info", action="{{ url_for('viewproduct') }}") }}-->
                         </div>
                     </form>
 
@@ -87,18 +49,10 @@
                 </div>
 
         {% endfor %}
-        <div class="container" align="middle">
-        {% for page_num in getProducts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=4) %}
-            {% if page_num %}
-                {% if getProducts.page == page_num %}
-                <a class="btn btn-primary mb-4" href="{{ url_for('main.searchresults', search=iPhone, page=page_num) }}">{{ page_num }}</a>
-                {% else %}
-                <a class="btn btn-outline-primary mb-4" href="{{ url_for('main.searchresults', search='iPhone', page=page_num) }}">{{ page_num }}</a>
-                {% endif %}
-            {% else %}
-                ...
+
             {% endif %}
-        {% endfor %}
+
+            </div>
 </div>
 
 

@@ -30,7 +30,7 @@
 <!--    Haray-->
 <!--  </a>-->
 
-          <a class="navbar-brand mr-4 mb-" href="/">Haray</a>
+          <a class="navbar-brand mr-4" href="/">Haray</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -40,26 +40,16 @@
                 {% if current_user.is_authenticated %}
                     <a class="nav-item nav-link" href="{{ url_for('products.sellproduct') }}">Sell a Product</a>
                 {% endif %}
+                <a class="nav-item nav-link" href="{{ url_for('main.searchresults') }}">Search Haray</a>
             </div>
 
 
 
             <!-- Navbar Right Side -->
 
-            <div class="navbar-nav">
 
-                  <form class="form-inline my-2 my-lg-0 mr-5" method="POST" action="{{ url_for('main.searchresults', search='iPhone') }}" enctype="multipart/form-data">
-                      <input class="form-control mr-sm-2 pr-3" type="search" placeholder="Search" aria-label="Search">
-                      <a class="btn btn-outline-primary my-2 my-sm-0 mr-5 pl-4 pr-4" href="{{ url_for('main.searchresults', search='iphone' ) }}">Search</a>
-<!--                      <input type="submit">-->
-                </form>
-
-<!--              <a class="nav-item nav-link" href="/manageAcc">-->
-
-<!--                    <p1>{{ current_user.username }}</p1>-->
-
-                  <!--                  {% for user in users %}--><!--                  {% endfor %}-->
               </a>
+               <div class="navbar-nav">
                 {% if current_user.is_authenticated %}
 <!--                    <a class="nav-item nav-link" href="{{ url_for('products.manageproducts') }}">Manage Products</a>-->
 <!--                    <a class="nav-item nav-link" href="{{ url_for('users.manageaccount') }}">{{ current_user.username }}</a>-->
