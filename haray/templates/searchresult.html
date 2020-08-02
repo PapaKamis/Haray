@@ -2,17 +2,12 @@
 
 
 {% block body %}
-<h1>Search Products</h1>
-<form method="POST" action="">
-    <div class="content-section">
-        <div align="middle" class="mb-2">
-            {{ form.search(class="form-control", placeholder="Search for something...") }}
-    </div>
-        <div align="middle">
-            {{ form.submit(class="btn btn-primary pr-5 pl-5") }}
-            </div>
+<h1>Search Results</h1>
+<div class="content-section">
+    <h3>Searching: {{ keyword }} </h3>
 
 
+</div>
 
 
 <hr/>
@@ -42,7 +37,6 @@
                         <div class="form-group">
 <!--                            <a class="btn btn-primary" href="{{ url_for('products.product', prod_id=product.prod_id) }}">View Product</a>-->
                         </div>
-                    </form>
 
                     </div>
                   </div>

@@ -5,6 +5,7 @@ from haray.models import User, Product, Payment
 from flask_login import login_user, current_user, logout_user, login_required
 from haray.Users.utils import send_mail, save_picture
 import os
+from haray.Main.forms import Search
 
 
 from flask import Blueprint
@@ -30,7 +31,8 @@ def register():
         db.session.commit()
         flash('Your account has been created.', 'success')
         return redirect(url_for('users.login'))
-    return render_template('register.html', title='Register Page', form=form)
+    searchform = Search()
+    return render_template('register.html', title='Register Page', form=form, searchform=searchform)
 
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -51,7 +53,8 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('main.home'))
         else:
             flash('Login unsuccessful. Incorrect username or password', 'danger')
-    return render_template('login.html', title='Login Page', form=form)
+    searchform = Search()
+    return render_template('login.html', title='Login Page', form=form, searchform=searchform)
 
 
 @users.route('/logout')
@@ -88,8 +91,8 @@ def account():
         form.dob.data = current_user.dob
 
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-
-    return render_template('account.html', title='Account Management', image_file=image_file, form=form)
+    searchform = Search()
+    return render_template('account.html', title='Account Management', image_file=image_file, form=form, searchform=searchform)
 
 
 @users.route('/profile/<int:user_id>', methods=['GET', 'POST'])
@@ -102,15 +105,17 @@ def userprofile(user_id):
 
     user_image_file = url_for('static', filename='profile_pics/' + user.image_file)
     img_location = url_for('static', filename='product_pics/')
+    searchform = Search()
     return render_template('user_profile.html', user=user, title='Update Product'
                            , form=form, legend='User Profile', products=products,
-                           user_image_file=user_image_file, img_location=img_location)
+                           user_image_file=user_image_file, img_location=img_location, searchform=searchform)
 
 
 @users.route('/manageaccount')
 @login_required
 def manageaccount():
-    return render_template('manage_account.html', title='Manage Account')
+    searchform = Search()
+    return render_template('manage_account.html', title='Manage Account', searchform=searchform)
 
 
 @users.route('/purhcasehistory', methods=['GET'])
@@ -128,8 +133,9 @@ def purchasehistory():
     user_image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
 
     img_location = url_for('static', filename='product_pics/')
-
-    return render_template('userhistory.html', title='Purchase History', products=products, user_image_file=user_image_file, img_location=img_location)
+    searchform = Search()
+    return render_template('userhistory.html', title='Purchase History', products=products, user_image_file=user_image_file,
+                           img_location=img_location, searchform=searchform)
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])
@@ -146,9 +152,9 @@ def reset_request():
         send_mail(getUser.email, token)
         flash('An email has been sent with instructions to reset your password', 'info')
         return redirect(url_for('users.login'))
+    searchform = Search()
 
-
-    return render_template('reset_request.html', title='Reset Password', form=form)
+    return render_template('reset_request.html', title='Reset Password', form=form, searchform=searchform)
 
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -168,5 +174,5 @@ def reset_token(token):
         db.session.commit()
         flash('Your password has been updated.', 'success')
         return redirect(url_for('users.login'))
-
-    return render_template('reset_token.html', title='Reset Password', form=form)
+    searchform = Search()
+    return render_template('reset_token.html', title='Reset Password', form=form, searchform=searchform)

@@ -22,7 +22,7 @@
 <body>
 
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-primary bg-dark  fixed-top">
+      <nav class="navbar navbar-expand-md navbar-primary bg-primary fixed-top" style="background-color: darkblue;">
 
         <div class="container">
 <!--            <a class="navbar-brand" href="#">-->
@@ -30,17 +30,22 @@
 <!--    Haray-->
 <!--  </a>-->
 
-          <a class="navbar-brand mr-4" href="/">Haray</a>
+          <a class="navbar-brand mr-4" href="{{ url_for('main.home') }}" style="color: white;">Haray</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
+<!--              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>-->
                 {% if current_user.is_authenticated %}
                     <a class="nav-item nav-link" href="{{ url_for('products.sellproduct') }}">Sell a Product</a>
                 {% endif %}
-                <a class="nav-item nav-link" href="{{ url_for('main.searchresults') }}">Search Haray</a>
+<!--                <a class="nav-item nav-link" href=" url_for('main.searchresults') ">Search Haray</a>-->
+
+
+
+
+
             </div>
 
 
@@ -50,6 +55,14 @@
 
               </a>
                <div class="navbar-nav">
+                                               <form class="form-inline" method="POST" action="{{ url_for('main.home') }}">
+                    {{ searchform.hidden_tag() }}
+                               {{ searchform.search(class="form-control mr-2",placeholder="Search for something...") }}
+                                                   {{ searchform.submit(class="btn btn-warning pr-5 pl-5 mr-5", style='color: black;') }}
+                                               </form>
+
+
+
                 {% if current_user.is_authenticated %}
 <!--                    <a class="nav-item nav-link" href="{{ url_for('products.manageproducts') }}">Manage Products</a>-->
 <!--                    <a class="nav-item nav-link" href="{{ url_for('users.manageaccount') }}">{{ current_user.username }}</a>-->

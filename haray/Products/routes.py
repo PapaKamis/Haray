@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from haray.Products.forms import (SellProduct, ManageProducts, Checkout)
+from haray.Main.forms import Search
 from haray import db
 from haray.models import Product, Payment
 from flask_login import current_user, login_required
@@ -37,8 +38,10 @@ def sellproduct():
         flash('Product is now up for sale.', 'success')
         return redirect(url_for('products.sellproduct'))
 
+    searchform = Search()
+
     return render_template('sell_product.html', title='Sell a Product', form=form
-                           , legend='Sell Product') #, image_file=image_file)
+                           , legend='Sell Product', searchform=searchform) #, image_file=image_file)
 
 
 
@@ -49,7 +52,9 @@ def product(prod_id):
 
     img_location = url_for('static', filename='product_pics/' + product.image_file)
 
-    return render_template('product.html', product=product, title=product.productname, img_location=img_location)
+    searchform = Search()
+
+    return render_template('product.html', product=product, title=product.productname, img_location=img_location, searchform=searchform)
 
 
 
@@ -63,8 +68,10 @@ def manageproducts():
 
     img_location = url_for('static', filename='product_pics/')
 
+    searchform = Search()
+
     return render_template('manage_products.html', title='Manage Your Products', form=form,
-                           getProducts=getProducts, img_location=img_location)
+                           getProducts=getProducts, img_location=img_location, searchform=searchform)
 
 
 
@@ -92,8 +99,11 @@ def updateproduct(prod_id):
         form.producttype.data = product.producttype
         form.description.data = product.description
         form.price.data = product.price
+
+    searchform = Search()
+
     return render_template('sell_product.html', product=product, title='Update Product'
-                           , form=form, legend='Update Product') #, image_file=image_file)
+                           , form=form, legend='Update Product', searchform=searchform) #, image_file=image_file)
 
 
 @products.route('/manageproducts/<int:prod_id>/delete', methods=['POST'])
@@ -120,8 +130,10 @@ def checkout(prod_id):
 
     img_location = url_for('static', filename='product_pics/' + product.image_file)
 
+    searchform = Search()
+
     return render_template('checkout.html', title='Checkout', form=form, legend='User Profile', product=product,
-                           img_location=img_location)
+                           img_location=img_location, searchform=searchform)
 
 
 @products.route('/paymentconfirmed/<int:prod_id>', methods=['GET', 'POST'])
@@ -147,5 +159,7 @@ def paymentconfirmed(prod_id):
 
     img_location = url_for('static', filename='product_pics/' + product.image_file)
 
+    searchform = Search()
+
     return render_template('payconfirmed.html', title='Checkout', form=form, legend='User Profile', product=product,
-                           date=date, payment=payment, img_location=img_location)
+                           date=date, payment=payment, img_location=img_location, searchform=searchform)
