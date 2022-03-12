@@ -1,7 +1,7 @@
 # Haray
-Haray, Flask. Ecommerce
-Recreation of graduation project (online auction). (First one was done in Visual Basic).
-Did not complete this one, however main functions are working and structure is complete.
+Haray was created using Python, Flask framework.
+
+Recreation of graduation project (online auction). (First one was done in Visual Basic). This is a work in progress, however main components and functions are up and running.
 
 Haray.docx contains all research and modeling.
 
